@@ -1,0 +1,206 @@
+<div [formGroup]="form" (keyup.enter)="onSubmit()">
+
+  <div class="form-group mt-3">
+    <input type="email" class="form-control" id="email" placeholder="Email" formControlName=email>
+    <div *ngIf="form.get('email').value === ''" class="text-danger">Inserire un indirizzo email</div>
+    <div *ngIf="form.get('email').errors?.['email']" class="text-danger">Inserire un formato email valido</div>
+  </div>
+  <div class="form-group mt-3">
+    <input type="text" class="form-control" id="driver" placeholder="Driver" formControlName=driver>
+  </div>
+  <div class="form-group mt-3">
+    <input type="text" class="form-control" id="squadra" placeholder="Squadra" formControlName=squadra>
+  </div>
+  <div class="mt-3">
+    <span>Categoria</span>
+    <select class="form-select" [(ngModel)]="category" formControlName=category>
+      <option *ngFor="let c of CAT_ARRAY" [value]=c>{{c}}</option>
+    </select>
+    <div *ngIf="form.get('category').value === ''" class="text-danger">Seleziona una categoria</div>
+  </div>
+  <div class="mt-3">
+    <span>Motore</span>
+    <select class="form-select" [(ngModel)]="motor" formControlName=motor (ngModelChange)="recalculatePrices()">
+      <option *ngFor="let m of MOT_ARRAY" [value]=m.name>{{m.name}}</option>
+    </select>
+    <div *ngIf="form.get('motor').value === ''" class="text-danger">Seleziona un motore</div>
+  </div>
+  <div class="mt-3">
+    <span>Pilota 1</span>
+    <select class="form-select" [(ngModel)]="pilotFist" formControlName=pilotFist (ngModelChange)="recalculatePrices()">
+      <option *ngFor="let pil of PIL_ARRAY" [value]=pil.name>{{pil.name}}</option>
+    </select>
+    <div *ngIf="form.get('pilotFist').value === ''" class="text-danger">Seleziona Pilota 1</div>
+  </div>
+  <div class="mt-3">
+    <span>Pilota 2</span>
+    <select class="form-select" [(ngModel)]="pilotSecond" formControlName=pilotSecond (ngModelChange)="recalculatePrices()">
+      <option *ngFor="let pil of PIL_ARRAY" [value]=pil.name>{{pil.name}}</option>
+    </select>
+    <div *ngIf="form.get('pilotSecond').value === ''" class="text-danger">Seleziona Pilota 2</div>
+  </div>
+  <div class="mt-3">
+    <span>Pilota 3</span>
+    <select class="form-select" [(ngModel)]="pilotThird" formControlName=pilotThird (ngModelChange)="recalculatePrices()">
+      <option *ngFor="let pil of PIL_ARRAY" [value]=pil.name>{{pil.name}}</option>
+    </select>
+    <div *ngIf="form.get('pilotThird').value === ''" class="text-danger">Seleziona Pilota 3</div>
+  </div>
+  <div class="mt-3">
+    <span>Costruttori</span>
+    <select class="form-select" [(ngModel)]="costruttori" formControlName=costruttori (ngModelChange)="recalculatePrices()">
+      <option *ngFor="let costrutt of COSTRUTT_ARRAY" [value]=costrutt.name>{{costrutt.name}}</option>
+    </select>
+    <div *ngIf="form.get('costruttori').value === ''" class="text-danger">Seleziona Costruttore</div>
+  </div>
+  <div class="mt-3">
+    <span>Pitstop</span>
+    <select class="form-select" [(ngModel)]="pitstop" formControlName=pitstop (ngModelChange)="recalculatePrices()">
+      <option *ngFor="let pitstop of PISTOP_ARRAY" [value]=pitstop>{{pitstop}}</option>
+    </select>
+    <div *ngIf="form.get('pitstop').value === ''" class="text-danger">Seleziona quanti pitstop</div>
+  </div>
+  <div class="mt-3">
+    <span>Q1</span>
+    <select class="form-select" [(ngModel)]="q1" formControlName=q1>
+      <option *ngFor="let q of SHORT_PILOTI" [value]=q>{{q}}</option>
+    </select>
+    <div *ngIf="form.get('q1').value === ''" class="text-danger">Seleziona Q1</div>
+  </div>
+  <div class="mt-3">
+    <span>Q2</span>
+    <select class="form-select" [(ngModel)]="q2" formControlName=q2>
+      <option *ngFor="let q of SHORT_PILOTI" [value]=q>{{q}}</option>
+    </select>
+    <div *ngIf="form.get('q2').value === ''" class="text-danger">Seleziona Q2</div>
+  </div>
+  <div class="mt-3">
+    <span>Q3</span>
+    <select class="form-select" [(ngModel)]="q3" formControlName=q3>
+      <option *ngFor="let q of SHORT_PILOTI" [value]=q>{{q}}</option>
+    </select>
+    <div *ngIf="form.get('q3').value === ''" class="text-danger">Seleziona Q3</div>
+  </div>
+  <div class="mt-3">
+    <span>Q4</span>
+    <select class="form-select" [(ngModel)]="q4" formControlName=q4>
+      <option *ngFor="let q of SHORT_PILOTI" [value]=q>{{q}}</option>
+    </select>
+    <div *ngIf="form.get('q4').value === ''" class="text-danger">Seleziona Q4</div>
+  </div>
+  <div class="mt-3">
+    <span>Q5</span>
+    <select class="form-select" [(ngModel)]="q5" formControlName=q5>
+      <option *ngFor="let q of SHORT_PILOTI" [value]=q>{{q}}</option>
+    </select>
+    <div *ngIf="form.get('q5').value === ''" class="text-danger">Seleziona Q5</div>
+  </div>
+  <div class="mt-3">
+    <span>P1</span>
+    <select class="form-select" [(ngModel)]="p1" formControlName=p1>
+      <option *ngFor="let q of SHORT_PILOTI" [value]=q>{{q}}</option>
+    </select>
+    <div *ngIf="form.get('p1').value === ''" class="text-danger">Seleziona P1</div>
+  </div>
+  <div class="mt-3">
+    <span>P2</span>
+    <select class="form-select" [(ngModel)]="p2" formControlName=p2>
+      <option *ngFor="let q of SHORT_PILOTI" [value]=q>{{q}}</option>
+    </select>
+    <div *ngIf="form.get('p2').value === ''" class="text-danger">Seleziona P2</div>
+  </div>
+  <div class="mt-3">
+    <span>P3</span>
+    <select class="form-select" [(ngModel)]="p3" formControlName=p3>
+      <option *ngFor="let q of SHORT_PILOTI" [value]=q>{{q}}</option>
+    </select>
+    <div *ngIf="form.get('p3').value === ''" class="text-danger">Seleziona P3</div>
+  </div>
+  <div class="mt-3">
+    <span>P4</span>
+    <select class="form-select" [(ngModel)]="p4" formControlName=p4>
+      <option *ngFor="let q of SHORT_PILOTI" [value]=q>{{q}}</option>
+    </select>
+    <div *ngIf="form.get('p4').value === ''" class="text-danger">Seleziona P4</div>
+  </div>
+  <div class="mt-3">
+    <span>P5</span>
+    <select class="form-select" [(ngModel)]="p5" formControlName=p5>
+      <option *ngFor="let q of SHORT_PILOTI" [value]=q>{{q}}</option>
+    </select>
+    <div *ngIf="form.get('p5').value === ''" class="text-danger">Seleziona P5</div>
+
+  </div>
+  <div class="mt-3">
+    <span>P6</span>
+    <select class="form-select" [(ngModel)]="p6" formControlName=p6>
+      <option *ngFor="let q of SHORT_PILOTI" [value]=q>{{q}}</option>
+    </select>
+    <div *ngIf="form.get('p6').value === ''" class="text-danger">Seleziona P6</div>
+
+  </div>
+  <div class="mt-3">
+    <span>P7</span>
+    <select class="form-select" [(ngModel)]="p7" formControlName=p7>
+      <option *ngFor="let q of SHORT_PILOTI" [value]=q>{{q}}</option>
+    </select>
+    <div *ngIf="form.get('p7').value === ''" class="text-danger">Seleziona P7</div>
+
+  </div>
+  <div class="mt-3">
+    <span>P8</span>
+    <select class="form-select" [(ngModel)]="p8" formControlName=p8>
+      <option *ngFor="let q of SHORT_PILOTI" [value]=q>{{q}}</option>
+    </select>
+    <div *ngIf="form.get('p8').value === ''" class="text-danger">Seleziona P8</div>
+
+  </div>
+  <div class="mt-3">
+    <span>P9</span>
+    <select class="form-select" [(ngModel)]="p9" formControlName=p9>
+      <option *ngFor="let q of SHORT_PILOTI" [value]=q>{{q}}</option>
+    </select>
+    <div *ngIf="form.get('p9').value === ''" class="text-danger">Seleziona P9</div>
+
+  </div>
+  <div class="mt-3">
+    <span>P10</span>
+    <select class="form-select" [(ngModel)]="p10" formControlName=p10>
+      <option *ngFor="let q of SHORT_PILOTI" [value]=q>{{q}}</option>
+    </select>
+    <div *ngIf="form.get('p10').value === ''" class="text-danger">Seleziona P10</div>
+
+  </div>
+  <div class="mt-3">
+    <span>Primo Ritirato</span>
+    <select class="form-select" [(ngModel)]="primoRitirato" formControlName=primoRitirato>
+      <option *ngFor="let q of SHORT_PILOTI" [value]=q>{{q}}</option>
+    </select>
+    <div *ngIf="form.get('primoRitirato').value === ''" class="text-danger">Seleziona Primo Ritirato</div>
+  </div>
+  <div class="mt-3">
+    <span>Numero Ritirati</span>
+    <select class="form-select" [(ngModel)]="numeroRitirati" formControlName=numeroRitirati>
+      <option *ngFor="let q of RITIRATI_ARRAY" [value]=q>{{q}}</option>
+    </select>
+    <div *ngIf="form.get('numeroRitirati').value === ''" class="text-danger">Seleziona Numero Ritirati</div>
+  </div>
+
+  <div class="form-group mt-3">
+    <input type="text" class="form-control" id="tempoPole" placeholder="Tempo Pole" formControlName=tempoPole>
+  </div>
+  <div class="form-group mt-3">
+    <input type="text" class="form-control" id="giroVeloce" placeholder="Giro Veloce" formControlName=giroVeloce>
+  </div>
+
+  <div class="d-flex mt-3">
+    <div *ngIf="crediti < 0" class="text-danger">Hai speso più crediti di quanti ne possiedi, controlla le tue scelte</div>
+    <div *ngIf="sameChoice()" class="text-danger">Non hai scelto tutti i piloti oppure hai scelto più volte lo stesso pilota, controlla le scelte di
+      Piloti, Q e P
+    </div>
+  </div>
+  <div class="d-flex mt-3">
+    <button type="submit" class="btn btn-dark mt-3" (click)="onSubmit()" [disabled]="!isFormValid()">Schiera</button>
+  </div>
+
+</div>
