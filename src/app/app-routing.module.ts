@@ -1,10 +1,21 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {FormSchieramentoComponent} from "./components/form-schieramento/form-schieramento.component";
+import {TableSchieramentoComponent} from "./components/table-schieramento/table-schieramento.component";
 
-const routes: Routes = [];
+const routes: Routes = [
+  {path: '', redirectTo: '/schieramento', pathMatch: 'full'},
+  {path: 'schieramento', component: FormSchieramentoComponent},
+  {path: 'x5zykmnwp3', component: TableSchieramentoComponent},
+  {path: '**', redirectTo: '/schieramento', pathMatch: 'full'}
+];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {
+    scrollPositionRestoration: 'top',
+    anchorScrolling: 'enabled',
+  })],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}
