@@ -7,20 +7,18 @@ import {AppRoutingModule} from "./app-routing.module";
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {CountDownComponent} from './components/count-down/count-down.component';
-import {environment} from "../environments/environment";
-import {initializeApp, provideFirebaseApp} from '@angular/fire/app';
-import {provideFirestore, getFirestore} from '@angular/fire/firestore';
-import {FIREBASE_OPTIONS} from "@angular/fire/compat";
 import { TableSchieramentoComponent } from './components/table-schieramento/table-schieramento.component';
 import {ToastrModule} from "ngx-toastr";
 import {HttpClientModule} from "@angular/common/http";
+import { FormGestioneCreditiComponent } from './components/form-gestione-crediti/form-gestione-crediti.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     FormSchieramentoComponent,
     CountDownComponent,
-    TableSchieramentoComponent
+    TableSchieramentoComponent,
+    FormGestioneCreditiComponent
   ],
   imports: [
     AppRoutingModule,
@@ -29,8 +27,6 @@ import {HttpClientModule} from "@angular/common/http";
     NgbModule,
     ReactiveFormsModule,
     HttpClientModule,
-    provideFirebaseApp(() => initializeApp(environment.firebase)),
-    provideFirestore(() => getFirestore()),
     ToastrModule.forRoot({
       timeOut: 5000,
       preventDuplicates: true,
@@ -38,7 +34,6 @@ import {HttpClientModule} from "@angular/common/http";
     }), // ToastrModule added
   ],
   providers: [
-    { provide: FIREBASE_OPTIONS, useValue: environment.firebase }
   ],
   bootstrap: [AppComponent]
 })

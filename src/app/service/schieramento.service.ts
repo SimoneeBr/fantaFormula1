@@ -1,32 +1,33 @@
 import {Injectable} from '@angular/core';
-import {Observable, tap} from "rxjs";
+import {Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
+import {environment} from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class SchieramentoService{
 
-  protected basePath = 'schieramento';
-
+  baseUrl = environment.baseUrl
   constructor(private httpClient: HttpClient) {};
 
 
 
   updateSchieramento(value: any) {
-    return this.httpClient.post("http://195.231.61.7:8888/fantaf1/schieramento/update", value);
+    return this.httpClient.post(`${this.baseUrl}/schieramento/update`, value);
   }
+  //backtick
 
   createSchieramento(value: any) {
-    return this.httpClient.post("http://195.231.61.7:8888/fantaf1/schieramento/create", value);
+    return this.httpClient.post(`${this.baseUrl}/schieramento/create`, value);
   }
 
   getByEmail(email: string): Observable<any[]> {
-    return this.httpClient.get<any[]>(`http://195.231.61.7:8888/fantaf1/schieramento/get-email/${email}`);
+    return this.httpClient.get<any[]>(`${this.baseUrl}/schieramento/get-email/${email}`);
   }
 
   getAll(): Observable<any[]> {
-    return this.httpClient.get<any[]>("http://195.231.61.7:8888/fantaf1/schieramento/getall");
+    return this.httpClient.get<any[]>(`${this.baseUrl}/schieramento/getall`);
   }
 
 }

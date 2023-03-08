@@ -1,25 +1,28 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpClientModule} from "@angular/common/http";
+import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Container} from "../model/container";
+import {environment} from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ContainermongodbService {
 
+  baseUrl = environment.baseUrl
+
   constructor(private httpClient: HttpClient) { }
 
 
   getAllMotori(): Observable<Container[]> {
-    return this.httpClient.get<Container[]>("http://195.231.61.7:8888/fantaf1/container/getall/motori");
+    return this.httpClient.get<Container[]>(`${this.baseUrl}/container/getall/motori`);
   }
 
   getAllPiloti(): Observable<Container[]> {
-    return this.httpClient.get<Container[]>("http://195.231.61.7:8888/fantaf1/container/getall/piloti");
+    return this.httpClient.get<Container[]>(`${this.baseUrl}/container/getall/piloti`);
   }
 
   getAllCostruttori(): Observable<Container[]> {
-    return this.httpClient.get<Container[]>("http://195.231.61.7:8888/fantaf1/container/getall/costruttori");
+    return this.httpClient.get<Container[]>(`${this.baseUrl}/container/getall/costruttori`);
   }
 }
