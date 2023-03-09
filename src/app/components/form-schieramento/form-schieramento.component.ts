@@ -6,6 +6,7 @@ import {SchieramentoService} from "../../service/schieramento.service";
 import {ToastrService} from "ngx-toastr";
 import {interval} from "rxjs";
 import {ContainermongodbService} from "../../service/containermongodb.service";
+import {RACE_DATE} from "../utils/constants";
 
 @Component({
   selector: 'app-form-schieramento',
@@ -108,7 +109,7 @@ export class FormSchieramentoComponent implements OnInit {
   numeroRitirati: number = -1;
   safetyCar: boolean = false;
 
-  public dDay = new Date('Mar 04 2023 16:00:00');
+  public dDay = RACE_DATE;
 
   showButton = true;
 
@@ -289,15 +290,21 @@ export class FormSchieramentoComponent implements OnInit {
     this.form.updateValueAndValidity();
   }
 
-  initializeAll(){
+  initializeAll() {
     this.containerService.getAllMotori().subscribe((data: Container[]) => {
       this.MOT_ARRAY = data;
+      //sort by token field
+      this.MOT_ARRAY.sort((a, b) => (a.token! > b.token!) ? -1 : 1)
     });
     this.containerService.getAllPiloti().subscribe((data: Container[]) => {
       this.PIL_ARRAY = data;
+//sort by token field
+      this.PIL_ARRAY.sort((a, b) => (a.token! > b.token!) ? -1 : 1)
     });
     this.containerService.getAllCostruttori().subscribe((data: Container[]) => {
       this.COSTRUTT_ARRAY = data;
+//sort by token field
+      this.COSTRUTT_ARRAY.sort((a, b) => (a.token! > b.token!) ? -1 : 1)
     });
   }
 }

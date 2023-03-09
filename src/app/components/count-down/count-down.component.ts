@@ -1,5 +1,6 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {Subscription, interval} from 'rxjs';
+import {RACE_DATE} from "../utils/constants";
 
 @Component({
   selector: 'app-count-down',
@@ -11,7 +12,7 @@ export class CountDownComponent implements OnInit, OnDestroy {
   private subscription: Subscription;
 
   public dateNow = new Date();
-  public dDay = new Date('Mar 11 2023 16:00:00');
+  public dDay = RACE_DATE;
   milliSecondsInASecond = 1000;
   hoursInADay = 24;
   minutesInAnHour = 60;
