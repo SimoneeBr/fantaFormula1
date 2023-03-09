@@ -18,11 +18,13 @@ export class AppComponent {
 
 
     router.events.subscribe((val) => {
-      if (this.router.url.includes('x5zykmnwp3'))
+      if (this.router.url.includes('x5zykmnwp3') || this.router.url.includes('yvFbLGxmNAk0'))
       {
         this.showCredits = false;
       }
     });
+
+
   }
 
   ngOnInit(): void {

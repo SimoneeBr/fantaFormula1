@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  baseUrl: 'http://195.231.61.7:8888/fantaf1'
+  //baseUrl: 'http://195.231.61.7:8888/fantaf1'
+  baseUrl: "http://localhost:8080/gare"
 };
 
 /*

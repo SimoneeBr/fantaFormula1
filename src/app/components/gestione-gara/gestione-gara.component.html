@@ -1,0 +1,56 @@
+
+<h4 class="py-5"> Per aggiungere una gara cliccare in basso!</h4>
+
+<div  class="panel panel-primary">
+  <table class="table table-hover">
+    <thead>
+    <tr>
+      <th>Nome Gara</th>
+      <th>Scadenza Schiaramento</th>
+      <th>Giorno della gara</th>
+      <th>Action</th>
+
+
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let gare of gare | async">
+      <td>{{gare.nomeGara}}</td>
+      <td>{{gare.scadenzaSchieramento | date: 'dd/MM/yyyy HH:mm'}}</td>
+      <td>{{gare.dataGara | date: 'dd/MM/yyyy HH:mm'}}</td>
+
+      <td>
+        <button (click)="deleteGara(gare.id)" class="btn btn-danger btn-delete" style="">Delete</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+</div>
+
+<div [hidden]="submitted" style="width: 500px;">
+  <form (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="nome">Nome Gara</label>
+      <input type="text" class="form-control" id="nome" required [(ngModel)]="gara.nomeGara" name="nome">
+    </div>
+
+    <div class="form-group">
+      <label for="scadenzaSchieramento">Scadenza Schieramento</label>
+      <input type="datetime-local" class="form-control" id="scadenzaSchieramento" required [(ngModel)]="gara.scadenzaSchieramento" name="cognome">
+    </div>
+
+    <div class="form-group">
+      <label for="dataGara">Email</label>
+      <input type="datetime-local" class="form-control" id="dataGara" required [(ngModel)]="gara.dataGara" name="email">
+    </div>
+
+    <button type="submit" class="btn btn-dark mt-3" style="margin-top: 5%; width: 30%;">Submit</button>
+  </form>
+</div>
+
+<div [hidden]="!submitted">
+  <h4>You submitted successfully!</h4>
+  <!-- <button class="btn btn-success" (click)="newEmployee()">Add</button> -->
+</div>
