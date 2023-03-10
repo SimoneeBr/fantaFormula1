@@ -105,6 +105,7 @@ export class FormSchieramentoComponent implements OnInit {
   p8: string = '';
   p9: string = '';
   p10: string = '';
+  autoreGiroVeloce: string = '';
   primoRitirato: string = '';
   numeroRitirati: number = -1;
   safetyCar: boolean = false;
@@ -143,6 +144,7 @@ export class FormSchieramentoComponent implements OnInit {
       p8: new FormControl('', [Validators.required]),
       p9: new FormControl('', [Validators.required]),
       p10: new FormControl('', [Validators.required]),
+      autoreGiroVeloce: new FormControl('', [Validators.required]),
       primoRitirato: new FormControl('', [Validators.required]),
       safetyCar: new FormControl(false, [Validators.required]),
       numeroRitirati: new FormControl(0, [Validators.required, Validators.min(0), Validators.max(20)]),
@@ -211,6 +213,7 @@ export class FormSchieramentoComponent implements OnInit {
       primoRitirato: this.primoRitirato,
       safetyCar: this.safetyCar,
       numeroRitirati: this.numeroRitirati,
+      autoreGiroVeloce: this.autoreGiroVeloce,
       tempoPole: this.form.get('tempoPole')!.value,
       giroVeloce: this.form.get('giroVeloce')!.value,
     }
@@ -218,6 +221,7 @@ export class FormSchieramentoComponent implements OnInit {
 
   isFormValid() {
     return this.form.touched && this.form.valid && !this.sameChoice() && this.crediti >= 0 &&
+      this.autoreGiroVeloce !== null && this.autoreGiroVeloce !== '' &&
       this.category !== null && this.category !== '' &&
       this.motor !== null && this.motor !== '' &&
       this.pilotFist !== null && this.pilotFist !== '' &&

@@ -185,6 +185,13 @@
     </select>
     <div *ngIf="form.get('numeroRitirati')?.value === -1" class="text-danger">Seleziona Numero Ritirati</div>
   </div>
+  <div class="mt-3">
+    <span>Autore Giro Veloce</span>
+    <select class="form-select" [(ngModel)]="autoreGiroVeloce" formControlName=autoreGiroVeloce>
+      <option *ngFor="let q of SHORT_PILOTI" [value]=q>{{q}}</option>
+    </select>
+    <div *ngIf="form.get('autoreGiroVeloce')?.value === ''" class="text-danger">Seleziona Autore Giro Veloce</div>
+  </div>
   <div class="form-check mt-3">
     <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" [(ngModel)]="safetyCar" formControlName="safetyCar">
     <label class="form-check-label" for="flexCheckDefault">Safety Car</label>

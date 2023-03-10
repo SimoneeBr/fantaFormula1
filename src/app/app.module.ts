@@ -11,6 +11,7 @@ import { TableSchieramentoComponent } from './components/table-schieramento/tabl
 import {ToastrModule} from "ngx-toastr";
 import {HttpClientModule} from "@angular/common/http";
 import { FormGestioneCreditiComponent } from './components/form-gestione-crediti/form-gestione-crediti.component';
+import { GestioneGaraComponent } from './components/gestione-gara/gestione-gara.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { FormGestioneCreditiComponent } from './components/form-gestione-crediti
     FormSchieramentoComponent,
     CountDownComponent,
     TableSchieramentoComponent,
-    FormGestioneCreditiComponent
+    FormGestioneCreditiComponent,
+    GestioneGaraComponent
   ],
   imports: [
     AppRoutingModule,
