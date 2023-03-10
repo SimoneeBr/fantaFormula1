@@ -6,16 +6,18 @@ import {environment} from "../../environments/environment";
 @Injectable({
   providedIn: 'root'
 })
-export class SchieramentoService{
+export class SchieramentoService {
 
   baseUrl = environment.baseUrl
-  constructor(private httpClient: HttpClient) {};
 
+  constructor(private httpClient: HttpClient) {
+  };
 
 
   updateSchieramento(value: any) {
     return this.httpClient.post(`${this.baseUrl}/schieramento/update`, value);
   }
+
   //backtick
 
   createSchieramento(value: any) {
@@ -29,5 +31,6 @@ export class SchieramentoService{
   getAll(): Observable<any[]> {
     return this.httpClient.get<any[]>(`${this.baseUrl}/schieramento/getall`);
   }
-
 }
+
+

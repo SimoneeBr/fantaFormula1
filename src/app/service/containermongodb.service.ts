@@ -25,4 +25,7 @@ export class ContainermongodbService {
   getAllCostruttori(): Observable<Container[]> {
     return this.httpClient.get<Container[]>(`${this.baseUrl}/container/getall/costruttori`);
   }
+  updateContainer(container: Container ): Observable<Container> {
+    return this.httpClient.post<Container>(`${this.baseUrl}/container/update`, container);
+  }
 }
