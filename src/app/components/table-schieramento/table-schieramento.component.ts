@@ -39,6 +39,7 @@ export class TableSchieramentoComponent implements OnInit {
     'numero Ritirati',
     'tempo pole',
     'giro veloce',
+    'autore giro veloce',
     'safetyCar'
   ]
 

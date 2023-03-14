@@ -6,7 +6,7 @@ import {SchieramentoService} from "../../service/schieramento.service";
 import {ToastrService} from "ngx-toastr";
 import {interval} from "rxjs";
 import {ContainermongodbService} from "../../service/containermongodb.service";
-import {RACE_DATE} from "../utils/constants";
+import {RACE_DATE, SELEZIONA_RISULTATO} from "../utils/constants";
 
 @Component({
   selector: 'app-form-schieramento',
@@ -23,40 +23,8 @@ export class FormSchieramentoComponent implements OnInit {
     token: 5
   }];*/
   MOT_ARRAY: Container[] = [];
-  PIL_ARRAY: Container[] = [
-    {name: 'Verstappen', token: 100},
-    {name: 'Leclerc', token: 95},
-    {name: 'Perez', token: 90},
-    {name: 'Sainz', token: 90},
-    {name: 'Hamilton', token: 85},
-    {name: 'Russel', token: 80},
-    {name: 'Norris', token: 75},
-    {name: 'Ocon', token: 70},
-    {name: 'Gasly', token: 65},
-    {name: 'Alonso', token: 65},
-    {name: 'Bottas', token: 60},
-    {name: 'Piastri', token: 55},
-    {name: 'Drugovich', token: 55},
-    {name: 'Zhou', token: 50},
-    {name: 'Tsunoda', token: 45},
-    {name: 'Magnussen', token: 40},
-    {name: 'Hulkenberg', token: 35},
-    {name: 'De Vries', token: 30},
-    {name: 'Albon', token: 25},
-    {name: 'Sargeant', token: 20}
-  ]
-  COSTRUTT_ARRAY: Container[] = [
-    {name: 'Red Bull', token: 100},
-    {name: 'Ferrari', token: 90},
-    {name: 'Mercedes', token: 80},
-    {name: 'McLaren', token: 70},
-    {name: 'Alpine', token: 60},
-    {name: 'Aston Martin', token: 50},
-    {name: 'Alfa Romeo', token: 50},
-    {name: 'Alpha Tauri', token: 40},
-    {name: 'Haas', token: 30},
-    {name: 'Williams', token: 20}
-  ];
+  PIL_ARRAY: Container[] = []
+  COSTRUTT_ARRAY: Container[] = [];
   SHORT_PILOTI: string[] = [
     'VER',
     'PER',
@@ -111,6 +79,7 @@ export class FormSchieramentoComponent implements OnInit {
   safetyCar: boolean = false;
 
   public dDay = RACE_DATE;
+  public placeHolder = SELEZIONA_RISULTATO;
 
   showButton = true;
 
@@ -220,32 +189,12 @@ export class FormSchieramentoComponent implements OnInit {
   }
 
   isFormValid() {
-    return this.form.touched && this.form.valid && !this.sameChoice() && this.crediti >= 0 &&
-      this.autoreGiroVeloce !== null && this.autoreGiroVeloce !== '' &&
-      this.category !== null && this.category !== '' &&
-      this.motor !== null && this.motor !== '' &&
-      this.pilotFist !== null && this.pilotFist !== '' &&
-      this.pilotSecond !== null && this.pilotSecond !== '' &&
-      this.pilotThird !== null && this.pilotThird !== '' &&
-      this.costruttori !== null && this.costruttori !== '' &&
-      this.pitstop !== null && this.pitstop !== -1 &&
-      this.q1 !== null && this.q1 !== '' &&
-      this.q2 !== null && this.q2 !== '' &&
-      this.q3 !== null && this.q3 !== '' &&
-      this.q4 !== null && this.q4 !== '' &&
-      this.q5 !== null && this.q5 !== '' &&
-      this.p1 !== null && this.p1 !== '' &&
-      this.p2 !== null && this.p2 !== '' &&
-      this.p3 !== null && this.p3 !== '' &&
-      this.p4 !== null && this.p4 !== '' &&
-      this.p5 !== null && this.p5 !== '' &&
-      this.p6 !== null && this.p6 !== '' &&
-      this.p7 !== null && this.p7 !== '' &&
-      this.p8 !== null && this.p8 !== '' &&
-      this.p9 !== null && this.p9 !== '' &&
-      this.p10 !== null && this.p10 !== '' &&
-      this.primoRitirato !== null && this.primoRitirato !== '' &&
-      this.numeroRitirati !== null && this.numeroRitirati !== -1;
+    return this.form.touched &&
+      this.form.valid &&
+      !this.sameChoice() &&
+      // !this.placeHolderSelected() &&
+      this.crediti >= 0 &&
+      this.validConstraints();
   }
 
   recalculatePrices() {
@@ -297,18 +246,50 @@ export class FormSchieramentoComponent implements OnInit {
   initializeAll() {
     this.containerService.getAllMotori().subscribe((data: Container[]) => {
       this.MOT_ARRAY = data;
-      //sort by token field
       this.MOT_ARRAY.sort((a, b) => (a.token! > b.token!) ? -1 : 1)
     });
     this.containerService.getAllPiloti().subscribe((data: Container[]) => {
       this.PIL_ARRAY = data;
-//sort by token field
       this.PIL_ARRAY.sort((a, b) => (a.token! > b.token!) ? -1 : 1)
     });
     this.containerService.getAllCostruttori().subscribe((data: Container[]) => {
       this.COSTRUTT_ARRAY = data;
-//sort by token field
       this.COSTRUTT_ARRAY.sort((a, b) => (a.token! > b.token!) ? -1 : 1)
     });
+  }
+
+  private placeHolderSelected() {
+    return this.category === this.placeHolder || this.motor === this.placeHolder || this.costruttori === this.placeHolder || this.pilotFist === this.placeHolder || this.pilotSecond === this.placeHolder || this.pilotThird === this.placeHolder || this.pitstop === -1 ||
+      this.p1 === this.placeHolder || this.p2 === this.placeHolder || this.p3 === this.placeHolder || this.p4 === this.placeHolder || this.p5 === this.placeHolder || this.p6 === this.placeHolder || this.p7 === this.placeHolder || this.p8 === this.placeHolder || this.p9 === this.placeHolder || this.p10 === this.placeHolder ||
+      this.q1 === this.placeHolder || this.q2 === this.placeHolder || this.q3 === this.placeHolder || this.q4 === this.placeHolder || this.q5 === this.placeHolder ||
+      this.primoRitirato === this.placeHolder || this.numeroRitirati === -1 || this.autoreGiroVeloce === this.placeHolder;
+  }
+
+  private validConstraints() {
+    return this.autoreGiroVeloce !== null && this.autoreGiroVeloce !== '' &&
+      this.category !== null && this.category !== '' &&
+      this.motor !== null && this.motor !== '' &&
+      this.pilotFist !== null && this.pilotFist !== '' &&
+      this.pilotSecond !== null && this.pilotSecond !== '' &&
+      this.pilotThird !== null && this.pilotThird !== '' &&
+      this.costruttori !== null && this.costruttori !== '' &&
+      this.pitstop !== null && this.pitstop !== -1 &&
+      this.q1 !== null && this.q1 !== '' &&
+      this.q2 !== null && this.q2 !== '' &&
+      this.q3 !== null && this.q3 !== '' &&
+      this.q4 !== null && this.q4 !== '' &&
+      this.q5 !== null && this.q5 !== '' &&
+      this.p1 !== null && this.p1 !== '' &&
+      this.p2 !== null && this.p2 !== '' &&
+      this.p3 !== null && this.p3 !== '' &&
+      this.p4 !== null && this.p4 !== '' &&
+      this.p5 !== null && this.p5 !== '' &&
+      this.p6 !== null && this.p6 !== '' &&
+      this.p7 !== null && this.p7 !== '' &&
+      this.p8 !== null && this.p8 !== '' &&
+      this.p9 !== null && this.p9 !== '' &&
+      this.p10 !== null && this.p10 !== '' &&
+      this.primoRitirato !== null && this.primoRitirato !== '' &&
+      this.numeroRitirati !== null && this.numeroRitirati !== -1;
   }
 }
