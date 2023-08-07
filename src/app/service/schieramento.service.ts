@@ -14,22 +14,20 @@ export class SchieramentoService {
   };
 
 
-  updateSchieramento(value: any) {
-    return this.httpClient.post(`${this.baseUrl}/schieramento/update`, value);
-  }
-
-  //backtick
-
   createSchieramento(value: any) {
     return this.httpClient.post(`${this.baseUrl}/schieramento/create`, value);
   }
 
-  getByEmail(email: string): Observable<any[]> {
-    return this.httpClient.get<any[]>(`${this.baseUrl}/schieramento/get-email/${email}`);
-  }
-
   getAll(): Observable<any[]> {
     return this.httpClient.get<any[]>(`${this.baseUrl}/schieramento/getall`);
+  }
+
+  count(): Observable<any> {
+    return this.httpClient.get<any>(`${this.baseUrl}/schieramento/countschier`);
+  }
+
+  deleteAll(): Observable<any> {
+    return this.httpClient.get<any>(`${this.baseUrl}/schieramento/deleteall`);
   }
 }
 

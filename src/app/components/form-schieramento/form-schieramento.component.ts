@@ -7,6 +7,7 @@ import {ToastrService} from "ngx-toastr";
 import {interval} from "rxjs";
 import {ContainermongodbService} from "../../service/containermongodb.service";
 import {RACE_DATE, SELEZIONA_RISULTATO} from "../utils/constants";
+import {ConfigurationService} from "../../service/configuration.service";
 
 @Component({
   selector: 'app-form-schieramento',
@@ -43,11 +44,33 @@ export class FormSchieramentoComponent implements OnInit {
     'MAG',
     'HUL',
     'TSU',
-    'DEV',
+    'RIC',
     'ALB',
-    'SAR']
+    'SAR'];
+  SHORT_PILOTI_RITIRATI: string[] = [
+    'Nessun Ritirato',
+    'VER',
+    'PER',
+    'LEC',
+    'SAI',
+    'RUS',
+    'HAM',
+    'OCO',
+    'GAS',
+    'NOR',
+    'PIA',
+    'BOT',
+    'ZHO',
+    'STR',
+    'ALO',
+    'MAG',
+    'HUL',
+    'TSU',
+    'RIC',
+    'ALB',
+    'SAR'];
   PISTOP_ARRAY: string[] = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '10+'];
-  RITIRATI_ARRAY: string[] = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20'];
+  RITIRATI_ARRAY: string[] = ['0','1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20'];
   crediti = 300;
   creditiTotali = 300;
 
@@ -86,6 +109,7 @@ export class FormSchieramentoComponent implements OnInit {
   constructor(private creditService: CreditService,
               private schieramentoService: SchieramentoService,
               private containerService: ContainermongodbService,
+              private configurationService: ConfigurationService,
               private toast: ToastrService) {
     this.form = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
@@ -127,14 +151,17 @@ export class FormSchieramentoComponent implements OnInit {
 
   ngOnInit(): void {
     this.creditService.sendData(this.crediti);
-
-    interval(1000).subscribe(() => {
-      const x = this.dDay.getTime() - new Date().getTime();
-      if (x < 0) {
-        this.toast.error('Il periodo di schieramento è scaduto', 'Errore');
-        this.showButton = false;
-      }
+    this.configurationService.getConfig().subscribe(value => {
+      this.dDay = new Date(value.schieramentoEnd);
+      interval(1000).subscribe(() => {
+        const x = this.dDay.getTime() - new Date().getTime();
+        if (x < 0) {
+          this.toast.error('Il periodo di schieramento è scaduto', 'Errore');
+          this.showButton = false;
+        }
+      });
     });
+
 
   }
 

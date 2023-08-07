@@ -13,7 +13,6 @@ export class ContainermongodbService {
 
   constructor(private httpClient: HttpClient) { }
 
-
   getAllMotori(): Observable<Container[]> {
     return this.httpClient.get<Container[]>(`${this.baseUrl}/container/getall/motori`);
   }

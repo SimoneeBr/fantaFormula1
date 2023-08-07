@@ -1,6 +1,7 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {Subscription, interval} from 'rxjs';
 import {RACE_DATE} from "../utils/constants";
+import {ConfigurationService} from "../../service/configuration.service";
 
 @Component({
   selector: 'app-count-down',
@@ -11,8 +12,7 @@ export class CountDownComponent implements OnInit, OnDestroy {
 
   private subscription: Subscription;
 
-  public dateNow = new Date();
-  public dDay = RACE_DATE;
+  public dDay = null;
   milliSecondsInASecond = 1000;
   hoursInADay = 24;
   minutesInAnHour = 60;
@@ -25,6 +25,10 @@ export class CountDownComponent implements OnInit, OnDestroy {
   public daysToDday: any;
 
   showTimer = false;
+
+  constructor(private configurationService: ConfigurationService) {
+
+  }
 
 
   private getTimeDifference() {
@@ -45,6 +49,9 @@ export class CountDownComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.configurationService.getConfig().subscribe(value => {
+      this.dDay = new Date(value.schieramentoEnd);
+    });
     this.subscription = interval(1000)
       .subscribe(x => {
         this.getTimeDifference();

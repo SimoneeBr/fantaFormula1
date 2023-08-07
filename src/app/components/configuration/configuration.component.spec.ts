@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { GestioneGaraComponent } from './gestione-gara.component';
+import { ConfigurationComponent } from './configuration.component';
 
-describe('GestioneGaraComponent', () => {
-  let component: GestioneGaraComponent;
-  let fixture: ComponentFixture<GestioneGaraComponent>;
+describe('ConfigurationComponent', () => {
+  let component: ConfigurationComponent;
+  let fixture: ComponentFixture<ConfigurationComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ GestioneGaraComponent ]
+      declarations: [ ConfigurationComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(GestioneGaraComponent);
+    fixture = TestBed.createComponent(ConfigurationComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

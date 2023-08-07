@@ -174,7 +174,7 @@
   <div class="mt-3">
     <span>Primo Ritirato</span>
     <select class="form-select" [(ngModel)]="primoRitirato" formControlName=primoRitirato>
-      <option *ngFor="let q of SHORT_PILOTI" [value]=q>{{q}}</option>
+      <option *ngFor="let q of SHORT_PILOTI_RITIRATI" [value]=q>{{q}}</option>
     </select>
     <div *ngIf="form.get('primoRitirato')?.value === ''" class="text-danger">Seleziona Primo Ritirato</div>
   </div>

@@ -1,0 +1,28 @@
+<div class="container-fluid">
+  <h2 class="mt-3">Configurazioni FantaFormula1</h2>
+  <div class="row">
+    <div class="col-md-12 py-2">
+      <h4>Data attuale:</h4>
+      <h3 style="color: cornflowerblue">{{actualDate | date:'dd/MM/yyyy HH:mm:ss'}}</h3>
+    </div>
+  </div>
+  <hr>
+  <div class="row">
+    <h4>Nuova data scadenza schieramento</h4>
+    <div class="col-md-2 py-2">Seleziona nuova data:</div>
+    <div class="col-md-3 py-2"><input type="datetime-local" class="form-control" [(ngModel)]="newDate"></div>
+    <div class="col-md py-2">
+      <button type="button" class="btn btn-dark" [disabled]="newDate==null" (click)="saveDate()">Salva</button>
+    </div>
+  </div>
+  <hr>
+  <div class="row">
+    <h4>Reset Schieramenti</h4>
+    <div class="col-md-4 py-2"> <h3 style="color: cornflowerblue">{{schieramentiValue}}</h3> schieramenti presenti</div>
+  </div>
+  <div class="row">
+    <div class="col-md py-2">
+      <button type="button" class="btn btn-danger" (click)="resetSchieramenti()">Reset</button>
+    </div>
+  </div>
+</div>
