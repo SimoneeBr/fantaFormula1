@@ -6,7 +6,7 @@ import {SchieramentoService} from "../../service/schieramento.service";
 import {ToastrService} from "ngx-toastr";
 import {interval} from "rxjs";
 import {ContainermongodbService} from "../../service/containermongodb.service";
-import {RACE_DATE, SELEZIONA_RISULTATO} from "../utils/constants";
+import {RACE_DATE} from "../utils/constants";
 import {ConfigurationService} from "../../service/configuration.service";
 
 @Component({
@@ -61,7 +61,6 @@ export class FormSchieramentoComponent implements OnInit {
   safetyCar: boolean = false;
 
   public dDay = RACE_DATE;
-  public placeHolder = SELEZIONA_RISULTATO;
 
   showButton = true;
 

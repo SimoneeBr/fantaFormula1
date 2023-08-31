@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Container} from "../../model/container";
-import {ActivatedRoute, Router} from "@angular/router";
 import {ContainermongodbService} from "../../service/containermongodb.service";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-form-gestione-crediti',
@@ -15,7 +15,7 @@ export class FormGestioneCreditiComponent implements OnInit {
   MOT_ARRAY: Container[];
 
 
-  constructor(private route: ActivatedRoute, private router: Router, private containerService: ContainermongodbService) {
+  constructor(private toast: ToastrService, private containerService: ContainermongodbService) {
   }
 
   ngOnInit() {
@@ -41,10 +41,10 @@ export class FormGestioneCreditiComponent implements OnInit {
   }
 
   save(container: Container) {
-    console.log(container);
-    this.containerService.updateContainer(container).subscribe(() =>
-      this.initializeAll()
-    )
+    this.containerService.updateContainer(container).subscribe(() => {
+      this.toast.success('Aggiornamento effettuato con successo', 'Successo');
+      this.initializeAll();
+    })
   };
 
 }

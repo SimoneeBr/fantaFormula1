@@ -30,7 +30,7 @@ import { ConfigurationComponent } from './components/configuration/configuration
     ReactiveFormsModule,
     HttpClientModule,
     ToastrModule.forRoot({
-      timeOut: 5000,
+      timeOut: 2000,
       preventDuplicates: true,
       maxOpened: 1,
     }), // ToastrModule added
