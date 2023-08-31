@@ -19,58 +19,14 @@ export class FormSchieramentoComponent implements OnInit {
   form: FormGroup = new FormGroup({});
 
   CAT_ARRAY = ['F1', 'WEC', 'FE', 'INDY', 'GT', 'DTM', 'NASCAR']
-  /*MOT_ARRAY: Container[] = [{name: 'Red Bull PowerTrains', token: 20}, {name: 'Ferrari', token: 15}, {name: 'Mercedes', token: 10}, {
-    name: 'Renault',
-    token: 5
-  }];*/
   MOT_ARRAY: Container[] = [];
   PIL_ARRAY: Container[] = []
   COSTRUTT_ARRAY: Container[] = [];
-  SHORT_PILOTI: string[] = [
-    'VER',
-    'PER',
-    'LEC',
-    'SAI',
-    'RUS',
-    'HAM',
-    'OCO',
-    'GAS',
-    'NOR',
-    'PIA',
-    'BOT',
-    'ZHO',
-    'STR',
-    'ALO',
-    'MAG',
-    'HUL',
-    'TSU',
-    'RIC',
-    'ALB',
-    'SAR'];
-  SHORT_PILOTI_RITIRATI: string[] = [
-    'Nessun Ritirato',
-    'VER',
-    'PER',
-    'LEC',
-    'SAI',
-    'RUS',
-    'HAM',
-    'OCO',
-    'GAS',
-    'NOR',
-    'PIA',
-    'BOT',
-    'ZHO',
-    'STR',
-    'ALO',
-    'MAG',
-    'HUL',
-    'TSU',
-    'RIC',
-    'ALB',
-    'SAR'];
+  SHORT_PILOTI: string[] = [];
+  SHORT_PILOTI_RITIRATI: string[] = [];
   PISTOP_ARRAY: string[] = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '10+'];
   RITIRATI_ARRAY: string[] = ['0','1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20'];
+
   crediti = 300;
   creditiTotali = 300;
 
@@ -81,11 +37,13 @@ export class FormSchieramentoComponent implements OnInit {
   pilotThird: string = '';
   costruttori: string = '';
   pitstop: number = -1;
+
   q1: string = '';
   q2: string = '';
   q3: string = '';
   q4: string = '';
   q5: string = '';
+
   p1: string = '';
   p2: string = '';
   p3: string = '';
@@ -96,6 +54,7 @@ export class FormSchieramentoComponent implements OnInit {
   p8: string = '';
   p9: string = '';
   p10: string = '';
+
   autoreGiroVeloce: string = '';
   primoRitirato: string = '';
   numeroRitirati: number = -1;
@@ -278,18 +237,13 @@ export class FormSchieramentoComponent implements OnInit {
     this.containerService.getAllPiloti().subscribe((data: Container[]) => {
       this.PIL_ARRAY = data;
       this.PIL_ARRAY.sort((a, b) => (a.token! > b.token!) ? -1 : 1)
+      this.SHORT_PILOTI = this.PIL_ARRAY.map(p => p.abbr!);
+      this.SHORT_PILOTI_RITIRATI = ['Nessun Ritirato'].concat(this.SHORT_PILOTI);
     });
     this.containerService.getAllCostruttori().subscribe((data: Container[]) => {
       this.COSTRUTT_ARRAY = data;
       this.COSTRUTT_ARRAY.sort((a, b) => (a.token! > b.token!) ? -1 : 1)
     });
-  }
-
-  private placeHolderSelected() {
-    return this.category === this.placeHolder || this.motor === this.placeHolder || this.costruttori === this.placeHolder || this.pilotFist === this.placeHolder || this.pilotSecond === this.placeHolder || this.pilotThird === this.placeHolder || this.pitstop === -1 ||
-      this.p1 === this.placeHolder || this.p2 === this.placeHolder || this.p3 === this.placeHolder || this.p4 === this.placeHolder || this.p5 === this.placeHolder || this.p6 === this.placeHolder || this.p7 === this.placeHolder || this.p8 === this.placeHolder || this.p9 === this.placeHolder || this.p10 === this.placeHolder ||
-      this.q1 === this.placeHolder || this.q2 === this.placeHolder || this.q3 === this.placeHolder || this.q4 === this.placeHolder || this.q5 === this.placeHolder ||
-      this.primoRitirato === this.placeHolder || this.numeroRitirati === -1 || this.autoreGiroVeloce === this.placeHolder;
   }
 
   private validConstraints() {

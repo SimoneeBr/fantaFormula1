@@ -9,10 +9,10 @@ import {ContainermongodbService} from "../../service/containermongodb.service";
   styleUrls: ['./form-gestione-crediti.component.scss']
 })
 export class FormGestioneCreditiComponent implements OnInit {
+
   PIL_ARRAY: Container[];
   COSTRUTT_ARRAY: Container[];
   MOT_ARRAY: Container[];
-
 
 
   constructor(private route: ActivatedRoute, private router: Router, private containerService: ContainermongodbService) {
@@ -39,11 +39,13 @@ export class FormGestioneCreditiComponent implements OnInit {
       this.COSTRUTT_ARRAY.sort((a, b) => (a.token! > b.token!) ? -1 : 1)
     });
   }
-  save(container: Container){
+
+  save(container: Container) {
     console.log(container);
-    this.containerService.updateContainer(container).subscribe(()=>
-    this.initializeAll()
-    )};
+    this.containerService.updateContainer(container).subscribe(() =>
+      this.initializeAll()
+    )
+  };
 
 }
 

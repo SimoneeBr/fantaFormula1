@@ -1,11 +1,15 @@
 <div class="container-fluid">
   <h2 class="mt-3">Piloti</h2>
   <div class="row" *ngFor="let container of PIL_ARRAY">
-    <div class="col-md-5 py-2">
+    <div class="col-md-3 py-2">
       <input name="name" class="form-control" [(ngModel)]="container.name" type="text" placeholder="nome"
              aria-label="nome">
     </div>
-    <div class="col-md-5 py-2">
+    <div class="col-md-3 py-2">
+      <input name="name" class="form-control" [(ngModel)]="container.abbr" type="text" placeholder="nome"
+             aria-label="nome">
+    </div>
+    <div class="col-md-3 py-2">
       <input name="token" class="form-control" [(ngModel)]="container.token" type="text" placeholder="token"
              aria-label="crediti">
     </div>
