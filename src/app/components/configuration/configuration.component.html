@@ -25,4 +25,17 @@
       <button type="button" class="btn btn-danger" (click)="resetSchieramenti()">Reset</button>
     </div>
   </div>
+  <hr>
+  <div class="row">
+    <h4>Leghe disponibili</h4>
+    <div class="row" *ngFor="let l of leghe">
+      <div class="col-md-3 py-2">
+        <input name="name" class="form-control" [(ngModel)]="l.name" type="text" placeholder="nome"
+               aria-label="nome">
+      </div>
+      <div class="col-md py-2">
+        <button type="button" class="btn btn-dark" (click)="saveLega(l)">Salva</button>
+      </div>
+    </div>
+  </div>
 </div>

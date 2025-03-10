@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {SchieramentoService} from "../../service/schieramento.service";
 import {ConfigurationService} from "../../service/configuration.service";
 import {ToastrService} from "ngx-toastr";
+import {ContainermongodbService} from "../../service/containermongodb.service";
+import {Lega} from "../../model/lega";
 
 @Component({
   selector: 'app-configuration',
@@ -14,8 +16,9 @@ export class ConfigurationComponent implements OnInit {
   actualDate = null;
   newDate = null;
   schieramentiValue = 0;
+  leghe: Lega[] = [];
 
-  constructor(private schieramentoService: SchieramentoService, private toast: ToastrService, private configService: ConfigurationService) {
+  constructor(private schieramentoService: SchieramentoService, private toast: ToastrService, private configService: ConfigurationService, private containerService: ContainermongodbService) {
 
   }
 
@@ -46,11 +49,20 @@ export class ConfigurationComponent implements OnInit {
   }
 
   reloadAll() {
+    this.containerService.getAllLegheConfig().subscribe(leghe => {
+      this.leghe = leghe;
+    })
     this.schieramentoService.count().subscribe(value => {
       this.schieramentiValue = value;
     });
     this.configService.getConfig().subscribe(value => {
       this.actualDate = value.schieramentoEnd;
     })
+  }
+
+  saveLega(l) {
+    this.containerService.updateLega(l).subscribe(value => {
+      this.toast.success("Lega aggiornata con successo");
+    });
   }
 }
