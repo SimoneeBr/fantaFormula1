@@ -8,6 +8,7 @@ import {interval} from "rxjs";
 import {ContainermongodbService} from "../../service/containermongodb.service";
 import {RACE_DATE} from "../utils/constants";
 import {ConfigurationService} from "../../service/configuration.service";
+import {Lega} from "../../model/lega";
 
 @Component({
   selector: 'app-form-schieramento',
@@ -21,6 +22,7 @@ export class FormSchieramentoComponent implements OnInit {
   CAT_ARRAY = ['F1', 'WEC', 'FE', 'INDY', 'GT', 'DTM', 'NASCAR']
   MOT_ARRAY: Container[] = [];
   PIL_ARRAY: Container[] = []
+  LEAGUE_ARRAY: any[] = []
   COSTRUTT_ARRAY: Container[] = [];
   SHORT_PILOTI: string[] = [];
   SHORT_PILOTI_RITIRATI: string[] = [];
@@ -30,7 +32,8 @@ export class FormSchieramentoComponent implements OnInit {
   crediti = 300;
   creditiTotali = 300;
 
-  category: string = '';
+  //category: string = '';
+  league: string = '';
   motor: string = '';
   pilotFist: string = '';
   pilotSecond: string = '';
@@ -73,7 +76,8 @@ export class FormSchieramentoComponent implements OnInit {
       email: new FormControl('', [Validators.required, Validators.email]),
       driver: new FormControl('', [Validators.required]),
       squadra: new FormControl('', [Validators.required]),
-      category: new FormControl('', [Validators.required]),
+      //category: new FormControl('', [Validators.required]),
+      league: new FormControl(''),
       motor: new FormControl('', [Validators.required]),
       pilotFist: new FormControl('', [Validators.required]),
       pilotSecond: new FormControl('', [Validators.required]),
@@ -142,7 +146,8 @@ export class FormSchieramentoComponent implements OnInit {
       email: this.form.get('email')!.value,
       driver: this.form.get('driver')!.value,
       squadra: this.form.get('squadra')!.value,
-      category: this.category,
+      //category: this.category,
+      league: this.league,
       motor: this.motor,
       pilotFist: this.pilotFist,
       pilotSecond: this.pilotSecond,
@@ -233,6 +238,11 @@ export class FormSchieramentoComponent implements OnInit {
       this.MOT_ARRAY = data;
       this.MOT_ARRAY.sort((a, b) => (a.token! > b.token!) ? -1 : 1)
     });
+    this.containerService.getAllLeghe().subscribe((data: Lega[]) => {
+      this.LEAGUE_ARRAY = data;
+      //sort by property name alphabetically
+      this.LEAGUE_ARRAY.sort((a, b) => (a.name! > b.name!) ? 1 : -1)
+    })
     this.containerService.getAllPiloti().subscribe((data: Container[]) => {
       this.PIL_ARRAY = data;
       this.PIL_ARRAY.sort((a, b) => (a.token! > b.token!) ? -1 : 1)
@@ -247,7 +257,7 @@ export class FormSchieramentoComponent implements OnInit {
 
   private validConstraints() {
     return this.autoreGiroVeloce !== null && this.autoreGiroVeloce !== '' &&
-      this.category !== null && this.category !== '' &&
+      //this.category !== null && this.category !== '' &&
       this.motor !== null && this.motor !== '' &&
       this.pilotFist !== null && this.pilotFist !== '' &&
       this.pilotSecond !== null && this.pilotSecond !== '' &&

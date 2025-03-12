@@ -14,6 +14,7 @@ export class TableSchieramentoComponent implements OnInit {
     'driver',
     'squadra',
     'category',
+    'lega',
     'motor',
     'PIL1',
     'PIL2',
